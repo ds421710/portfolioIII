@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dipendra Kumar — UI/UX, Technical Trainer &amp; MBA Candidate</title>
+  <meta name="description" content="Portfolio of Dipendra Kumar — B.E. Information Science & Engineering, MBA Candidate (SMU), Freelance Technical Trainer (5,000+ students), and UI/UX Wireframing & Product Documentation Specialist in Bengaluru, India." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            display: ['"Space Grotesk"', 'Inter', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            knight: {
+              bg: '#09090B',
+              surface: '#111216',
+              card: '#15171C',
+              border: '#242730',
+            },
+            gold: {
+              300: '#F3D778',
+              400: '#E5C158',
+              500: '#D4AF37',
+              600: '#B48A1E',
+              700: '#8F6C14',
+            }
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    h1, h2, h3, .font-display {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+    }
+
+    /* Subtle tactical carbon grid + overhead spotlight vignette */
+    .noir-hero {
+      position: relative;
+      overflow: hidden;
+      background-image:
+        radial-gradient(ellipse 65% 45% at 50% -8%, rgba(180, 138, 30, 0.08), transparent 65%),
+        linear-gradient(to right, rgba(24, 24, 27, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(24, 24, 27, 0.04) 1px, transparent 1px);
+      background-size: 100% 100%, 40px 40px, 40px 40px;
+    }
+    .dark .noir-hero {
+      background-image:
+        radial-gradient(ellipse 60% 42% at 72% 8%, rgba(212, 175, 55, 0.11), transparent 62%),
+        radial-gradient(ellipse 50% 45% at 15% 85%, rgba(255, 255, 255, 0.03), transparent 60%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+    }
+
+    /* GPU-accelerated hairline scroll progress bar */
+    #scrollProgress {
+      transform-origin: left center;
+      transform: scaleX(0);
+      will-change: transform;
+    }
+
+    /* Hardware-accelerated scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+      transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* Subtle metallic/gold spotlight sheen on hover */
+    .spotlight-card {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.24s ease, box-shadow 0.26s ease;
+    }
+    .spotlight-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.28s ease;
+      background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), rgba(180, 138, 30, 0.08), transparent 65%);
+    }
+    .dark .spotlight-card::before {
+      background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 50%), rgba(212, 175, 55, 0.11), transparent 65%);
+    }
+    .spotlight-card:hover::before {
+      opacity: 1;
+    }
+    .spotlight-card:hover {
+      transform: translate3d(0, -3px, 0);
+    }
+
+    /* Sliding pill indicator */
+    .pill-slider {
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: 0;
+      border-radius: 0.55rem;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), width 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      will-change: transform, width;
+    }
+
+    /* Smooth text cross-fade on lens switch */
+    .lens-swap {
+      transition: opacity 0.18s ease, transform 0.18s ease;
+    }
+    .lens-swap.swapping {
+      opacity: 0;
+      transform: translate3d(0, 5px, 0);
+    }
+
+    /* Staggered card entrance */
+    @keyframes cardPopIn {
+      from {
+        opacity: 0;
+        transform: translate3d(0, 12px, 0) scale(0.99);
+      }
+      to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(1);
+      }
+    }
+    .card-enter {
+      animation: cardPopIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    /* Modal spring transition */
+    #projectModal {
+      transition: opacity 0.22s ease;
+    }
+    #projectModal.modal-open #modalPanel {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    #modalPanel {
+      opacity: 0;
+      transform: translate3d(0, 12px, 0) scale(0.98);
+      transition: opacity 0.24s cubic-bezier(0.22, 1, 0.36, 1), transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Active nav link indicator */
+    .nav-link.active-nav {
+      color: #B48A1E;
+    }
+    .dark .nav-link.active-nav {
+      color: #E5C158;
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-zinc-50 text-zinc-900 dark:bg-knight-bg dark:text-zinc-100 antialiased selection:bg-gold-500 selection:text-knight-bg overflow-x-hidden">
+
+  <!-- Top Hairline Scroll Progress Bar -->
+  <div class="fixed top-0 left-0 right-0 h-[2px] z-50 pointer-events-none bg-transparent">
+    <div id="scrollProgress" class="h-full w-full bg-gradient-to-r from-gold-600 via-gold-400 to-gold-500"></div>
+  </div>
+
+  <!-- Sticky Navigation -->
+  <header id="top" class="sticky top-0 z-40 backdrop-blur-xl bg-white/85 dark:bg-knight-bg/85 border-b border-zinc-200 dark:border-knight-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-3">
+        <!-- Brand -->
+        <a href="#hero" class="flex items-center gap-2.5 shrink-0 group focus:outline-none">
+          <span class="w-9 h-9 rounded-lg bg-zinc-900 dark:bg-gold-500 text-gold-400 dark:text-knight-bg font-display font-bold text-sm tracking-wider flex items-center justify-center border border-zinc-700 dark:border-gold-400 shadow-sm group-hover:scale-105 transition-transform">DK</span>
+          <div class="leading-tight">
+            <span class="block font-display font-bold text-zinc-950 dark:text-zinc-50 text-sm sm:text-base tracking-tight">Dipendra Kumar</span>
+            <span class="hidden sm:block font-mono text-[10px] uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Bengaluru, IN</span>
+          </div>
+        </a>
+
+        <!-- Desktop Nav Links -->
+        <nav aria-label="Primary Navigation" class="hidden md:flex items-center gap-1">
+          <a href="#about" data-section="about" class="nav-link px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-lg transition-colors">About</a>
+          <a href="#experience" data-section="experience" class="nav-link px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-lg transition-colors">Experience</a>
+          <a href="#projects" data-section="projects" class="nav-link px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-lg transition-colors">Projects</a>
+          <a href="#skills" data-section="skills" class="nav-link px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-lg transition-colors">Skills</a>
+          <a href="#education" data-section="education" class="nav-link px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-lg transition-colors">Education</a>
+          <a href="#contact" data-section="contact" class="nav-link px-3 py-2 text-sm font-medium text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-100 rounded-lg transition-colors">Contact</a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-2 shrink-0">
+          <button id="themeToggle" type="button" aria-label="Toggle dark or light mode" class="p-2 rounded-lg border border-zinc-200 dark:border-knight-border bg-white dark:bg-knight-surface text-zinc-700 dark:text-zinc-300 hover:border-gold-500 transition-colors">
+            <i data-lucide="moon" class="w-4 h-4 dark:hidden"></i>
+            <i data-lucide="sun" class="w-4 h-4 hidden dark:block"></i>
+          </button>
+          <a href="#contact" class="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-zinc-950 dark:bg-gold-500 hover:bg-zinc-800 dark:hover:bg-gold-400 text-white dark:text-knight-bg text-sm font-semibold shadow-sm transition-colors">
+            <span>Connect</span>
+            <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+          </a>
+          <button id="mobileMenuBtn" type="button" aria-label="Open navigation menu" aria-expanded="false" class="md:hidden p-2 rounded-lg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-knight-surface transition-colors">
+            <i data-lucide="menu" class="w-5 h-5"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-zinc-200 dark:border-knight-border bg-white dark:bg-knight-bg px-4 py-3 space-y-1">
+      <a href="#about" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-knight-surface">About</a>
+      <a href="#experience" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-knight-surface">Experience</a>
+      <a href="#projects" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-knight-surface">Projects</a>
+      <a href="#skills" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-knight-surface">Skills</a>
+      <a href="#education" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-sm font-medium text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-knight-surface">Education</a>
+      <a href="#contact" class="mobile-nav-link block px-3 py-2.5 rounded-lg text-sm font-semibold text-gold-600 dark:text-gold-400 hover:bg-zinc-100 dark:hover:bg-knight-surface">Contact</a>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="noir-hero pt-12 pb-16 sm:pt-20 sm:pb-24 border-b border-zinc-200 dark:border-knight-border">
+      <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+          <!-- Left Column -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-zinc-100 dark:bg-knight-surface border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300 text-xs font-medium">
+              <span class="w-2 h-2 rounded-full bg-gold-500"></span>
+              <span>Open to MBA Internships, Business Development, UI/UX &amp; Tech Roles</span>
+            </div>
+
+            <!-- Interactive Role Lens Switcher with Sliding Pill -->
+            <div class="space-y-2">
+              <span class="font-mono text-[11px] font-semibold uppercase tracking-widest text-zinc-500 dark:text-zinc-400">Profile Focus:</span>
+              <div id="roleLensGroup" class="relative inline-flex flex-wrap sm:flex-nowrap items-center gap-1 p-1 rounded-xl bg-zinc-200/70 dark:bg-knight-surface border border-zinc-300/80 dark:border-knight-border">
+                <div id="lensSlider" class="pill-slider bg-white dark:bg-zinc-800 border border-zinc-300 dark:border-gold-500/45 shadow-sm pointer-events-none hidden sm:block"></div>
+                <button type="button" data-lens="all" class="lens-btn relative z-10 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors text-zinc-950 dark:text-zinc-50">All-Rounder</button>
+                <button type="button" data-lens="ux" class="lens-btn relative z-10 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100">UI/UX &amp; Product</button>
+                <button type="button" data-lens="business" class="lens-btn relative z-10 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100">Business &amp; Training</button>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <h1 id="heroHeadline" class="lens-swap font-display text-3xl sm:text-5xl font-bold tracking-tight text-zinc-950 dark:text-white leading-[1.08]">
+                Designing <span class="text-gold-600 dark:text-gold-400">clear products</span>, training engineers &amp; driving business growth.
+              </h1>
+              <p id="heroSubtext" class="lens-swap text-base sm:text-lg text-zinc-600 dark:text-zinc-400 leading-relaxed max-w-2xl">
+                I'm <strong class="text-zinc-950 dark:text-zinc-100">Dipendra Kumar</strong> — an Information Science &amp; Engineering graduate (7.79 CGPA), current Online MBA candidate at Sikkim Manipal University, UX wireframing intern, and freelance technical trainer who has mentored <strong class="text-zinc-950 dark:text-zinc-100">5,000+ engineering students</strong> across colleges.
+              </p>
+            </div>
+
+            <!-- CTAs -->
+            <div class="flex flex-wrap items-center gap-3 pt-1">
+              <a href="#projects" class="group inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-zinc-950 dark:bg-gold-500 hover:bg-zinc-800 dark:hover:bg-gold-400 text-white dark:text-knight-bg text-sm font-semibold shadow-sm transition-all active:scale-[0.98]">
+                <i data-lucide="layers" class="w-4 h-4"></i>
+                <span>Explore Projects</span>
+                <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-0.5"></i>
+              </a>
+              <a href="#contact" class="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white dark:bg-knight-surface border border-zinc-300 dark:border-knight-border hover:border-gold-500 dark:hover:border-gold-500/70 text-zinc-900 dark:text-zinc-100 text-sm font-semibold transition-all active:scale-[0.98]">
+                <i data-lucide="mail" class="w-4 h-4 text-gold-600 dark:text-gold-400"></i>
+                <span>Get in Touch</span>
+              </a>
+              <a href="https://github.com/ds421710" target="_blank" rel="noopener noreferrer" aria-label="GitHub Profile" class="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-zinc-100 dark:bg-knight-surface border border-zinc-200 dark:border-knight-border hover:border-zinc-400 dark:hover:border-zinc-600 text-zinc-700 dark:text-zinc-200 text-sm font-medium transition-colors">
+                <i data-lucide="github" class="w-4 h-4"></i>
+                <span>GitHub</span>
+              </a>
+              <a href="https://www.linkedin.com/in/dipendra-kumar-96a15720b/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Profile" class="inline-flex items-center gap-2 px-4 py-3 rounded-lg bg-zinc-100 dark:bg-knight-surface border border-zinc-200 dark:border-knight-border hover:border-zinc-400 dark:hover:border-zinc-600 text-zinc-700 dark:text-zinc-200 text-sm font-medium transition-colors">
+                <i data-lucide="linkedin" class="w-4 h-4"></i>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Right Column: Executive Tactical Dossier Card -->
+          <div class="lg:col-span-5">
+            <div class="spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border shadow-xl shadow-black/5 dark:shadow-2xl dark:shadow-black/50 p-6 sm:p-7 space-y-5">
+              <div class="flex items-center justify-between border-b border-zinc-100 dark:border-knight-border pb-4">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-12 h-12 rounded-xl bg-zinc-900 dark:bg-knight-card border border-zinc-700 dark:border-gold-500/40 text-gold-400 font-display font-bold text-lg flex items-center justify-center">DK</div>
+                  <div>
+                    <h2 class="font-display font-bold text-zinc-950 dark:text-white text-base">Dipendra Kumar</h2>
+                    <p class="text-xs text-zinc-500 dark:text-zinc-400">B.E. (ISE) &bull; MBA Candidate (SMU)</p>
+                  </div>
+                </div>
+                <span class="px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-gold-400 font-mono text-[11px] font-semibold">Bengaluru</span>
+              </div>
+
+              <!-- Dynamic Focus Highlights -->
+              <div id="lensHighlights" class="lens-swap space-y-3 text-sm text-zinc-600 dark:text-zinc-300">
+                <div class="flex items-start gap-2.5">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-gold-600 dark:text-gold-400 shrink-0 mt-0.5"></i>
+                  <span><strong class="text-zinc-950 dark:text-white">UI/UX &amp; SRS:</strong> 20+ customer &amp; admin wireframes at Gully Group using Moqups &amp; Figma.</span>
+                </div>
+                <div class="flex items-start gap-2.5">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-gold-600 dark:text-gold-400 shrink-0 mt-0.5"></i>
+                  <span><strong class="text-zinc-950 dark:text-white">Technical Training:</strong> Delivered programming &amp; placement sessions to 5,000+ college students.</span>
+                </div>
+                <div class="flex items-start gap-2.5">
+                  <i data-lucide="check-circle-2" class="w-4 h-4 text-gold-600 dark:text-gold-400 shrink-0 mt-0.5"></i>
+                  <span><strong class="text-zinc-950 dark:text-white">Tech + Business:</strong> Combining B.E. software foundations with MBA (Systems &amp; Taxation).</span>
+                </div>
+              </div>
+
+              <!-- Animated Metrics 2x2 -->
+              <div id="metricsStrip" class="grid grid-cols-2 gap-3 pt-2">
+                <div class="p-3.5 rounded-xl bg-zinc-50 dark:bg-knight-bg border border-zinc-200/80 dark:border-knight-border">
+                  <div class="font-display text-2xl font-bold text-gold-600 dark:text-gold-400">
+                    <span class="count-up" data-target="5000" data-suffix="+">5,000+</span>
+                  </div>
+                  <div class="text-xs font-medium text-zinc-500 dark:text-zinc-400 mt-0.5">Students Trained</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-zinc-50 dark:bg-knight-bg border border-zinc-200/80 dark:border-knight-border">
+                  <div class="font-display text-2xl font-bold text-zinc-950 dark:text-white">
+                    <span class="count-up" data-target="20" data-suffix="+">20+</span>
+                  </div>
+                  <div class="text-xs font-medium text-zinc-500 dark:text-zinc-400 mt-0.5">UI/UX Wireframes</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-zinc-50 dark:bg-knight-bg border border-zinc-200/80 dark:border-knight-border">
+                  <div class="font-display text-2xl font-bold text-zinc-950 dark:text-white">
+                    <span class="count-up" data-target="7.79" data-decimals="2">7.79</span>
+                  </div>
+                  <div class="text-xs font-medium text-zinc-500 dark:text-zinc-400 mt-0.5">B.E. CGPA (VTU)</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-zinc-50 dark:bg-knight-bg border border-zinc-200/80 dark:border-knight-border">
+                  <div class="font-display text-2xl font-bold text-zinc-950 dark:text-white">Sem 3</div>
+                  <div class="text-xs font-medium text-zinc-500 dark:text-zinc-400 mt-0.5">Online MBA (SMU)</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About & Value Pillars -->
+    <section id="about" class="py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="reveal max-w-2xl mb-12">
+          <span class="font-mono text-xs font-semibold uppercase tracking-widest text-gold-600 dark:text-gold-400">01 / About</span>
+          <h2 class="font-display text-2xl sm:text-4xl font-bold text-zinc-950 dark:text-white mt-2 tracking-tight">Where technical clarity meets user-first design and communication.</h2>
+          <p class="text-zinc-600 dark:text-zinc-400 mt-3.5 leading-relaxed">
+            With a Bachelor of Engineering in Information Science &amp; Engineering from SKIT Bengaluru and an ongoing MBA from Sikkim Manipal University, I thrive in roles that connect people, products, and technology — from translating business needs into clear UI/UX wireframes and SRS documents to training large student cohorts and driving client-facing conversations.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border hover:border-gold-500/50 p-6 sm:p-7" style="transition-delay: 40ms;">
+            <div class="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-gold-600 dark:text-gold-400 flex items-center justify-center mb-5">
+              <i data-lucide="layout-template" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-display font-bold text-zinc-950 dark:text-white text-lg">UI/UX &amp; Product Specs</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-2.5 leading-relaxed">
+              Designing low-fidelity wireframes, user journeys, admin dashboards, and structured SRS documents that keep business and engineering teams aligned.
+            </p>
+          </div>
+
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border hover:border-gold-500/50 p-6 sm:p-7" style="transition-delay: 120ms;">
+            <div class="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-gold-600 dark:text-gold-400 flex items-center justify-center mb-5">
+              <i data-lucide="presentation" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-display font-bold text-zinc-950 dark:text-white text-lg">Training &amp; Business Development</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-2.5 leading-relaxed">
+              Experienced in public speaking, stakeholder coordination, and simplifying complex technical ideas for 5,000+ learners — directly transferable to BDE and client-facing roles.
+            </p>
+          </div>
+
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border hover:border-gold-500/50 p-6 sm:p-7" style="transition-delay: 200ms;">
+            <div class="w-11 h-11 rounded-xl bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-gold-600 dark:text-gold-400 flex items-center justify-center mb-5">
+              <i data-lucide="code-2" class="w-5 h-5"></i>
+            </div>
+            <h3 class="font-display font-bold text-zinc-950 dark:text-white text-lg">Full-Stack &amp; Data Foundations</h3>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-2.5 leading-relaxed">
+              Hands-on background in web development (React, Next.js, SQL), Python data analytics (Pandas, Power BI), deep learning models, and Arduino IoT prototyping.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-16 sm:py-24 bg-zinc-100/70 dark:bg-knight-surface/60 border-y border-zinc-200 dark:border-knight-border">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-12">
+          <span class="font-mono text-xs font-semibold uppercase tracking-widest text-gold-600 dark:text-gold-400">02 / Experience</span>
+          <h2 class="font-display text-2xl sm:text-4xl font-bold text-zinc-950 dark:text-white mt-2 tracking-tight">Professional &amp; Internship Journey</h2>
+        </div>
+
+        <div class="relative space-y-6 before:hidden sm:before:block before:absolute before:left-[19px] before:top-4 before:bottom-4 before:w-[2px] before:bg-zinc-300 dark:before:bg-knight-border">
+          <!-- Role 1 -->
+          <article class="reveal relative sm:pl-14">
+            <span class="hidden sm:flex absolute left-2.5 top-7 w-5 h-5 rounded-full bg-gold-500 ring-4 ring-zinc-100 dark:ring-knight-bg items-center justify-center">
+              <span class="w-2 h-2 rounded-full bg-knight-bg"></span>
+            </span>
+            <div class="spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border hover:border-gold-500/45 p-6 sm:p-7">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                <div>
+                  <h3 class="font-display text-lg font-bold text-zinc-950 dark:text-white">Freelance Technical Trainer</h3>
+                  <p class="text-sm font-medium text-gold-600 dark:text-gold-400">College Technical Training Programs &bull; Bengaluru, Karnataka</p>
+                </div>
+                <span class="inline-flex items-center px-3 py-1 rounded-md font-mono text-[11px] font-semibold bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-gold-500/35 text-zinc-800 dark:text-gold-400 w-fit">Ongoing</span>
+              </div>
+              <ul class="space-y-2.5 text-sm text-zinc-600 dark:text-zinc-300 list-disc pl-5">
+                <li>Trained and managed <strong class="text-zinc-950 dark:text-white">5,000+ engineering students</strong> across multiple branches in Python, Java, C, C++, quantitative aptitude, logical reasoning, and placement preparation.</li>
+                <li>Designed structured slide decks, dry-run examples, and hands-on exercises focused on building strong fundamentals in simple, practical steps.</li>
+                <li>Coordinated batch schedules, advance syllabi, and training deliverables with college training organizers to ensure consistent student engagement and outcomes.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Role 2 -->
+          <article class="reveal relative sm:pl-14" style="transition-delay: 80ms;">
+            <span class="hidden sm:flex absolute left-2.5 top-7 w-5 h-5 rounded-full bg-zinc-400 dark:bg-zinc-600 ring-4 ring-zinc-100 dark:ring-knight-bg items-center justify-center">
+              <span class="w-2 h-2 rounded-full bg-white dark:bg-knight-bg"></span>
+            </span>
+            <div class="spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border hover:border-gold-500/45 p-6 sm:p-7">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                <div>
+                  <h3 class="font-display text-lg font-bold text-zinc-950 dark:text-white">Project Intern — UX Research &amp; Product Design</h3>
+                  <p class="text-sm font-medium text-gold-600 dark:text-gold-400">Gully Business Design Pvt. Ltd. (Gully Group) &bull; Bengaluru, Karnataka</p>
+                </div>
+                <span class="inline-flex items-center px-3 py-1 rounded-md font-mono text-[11px] font-semibold bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-zinc-600 dark:text-zinc-300 w-fit">Feb 2025 – May 2025</span>
+              </div>
+              <ul class="space-y-2.5 text-sm text-zinc-600 dark:text-zinc-300 list-disc pl-5">
+                <li>Designed <strong class="text-zinc-950 dark:text-white">20+ low-fidelity wireframes</strong> for customer and admin dashboards of an electrician service web application using Moqups and Figma, prioritizing intuitive navigation and layout consistency.</li>
+                <li>Created detailed <strong class="text-zinc-950 dark:text-white">Software Requirements Specification (SRS)</strong> documents covering functional and non-functional requirements to bridge design and development teams.</li>
+                <li>Conducted competitive UI/UX benchmarking (including Zepto app layout structures) and applied core hierarchy, spacing, accessibility, and responsive web design principles.</li>
+              </ul>
+            </div>
+          </article>
+
+          <!-- Role 3 -->
+          <article class="reveal relative sm:pl-14" style="transition-delay: 160ms;">
+            <span class="hidden sm:flex absolute left-2.5 top-7 w-5 h-5 rounded-full bg-zinc-400 dark:bg-zinc-600 ring-4 ring-zinc-100 dark:ring-knight-bg items-center justify-center">
+              <span class="w-2 h-2 rounded-full bg-white dark:bg-knight-bg"></span>
+            </span>
+            <div class="spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border hover:border-gold-500/45 p-6 sm:p-7">
+              <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                <div>
+                  <h3 class="font-display text-lg font-bold text-zinc-950 dark:text-white">Python Libraries Intern</h3>
+                  <p class="text-sm font-medium text-gold-600 dark:text-gold-400">Data Analysis &amp; Visualization Project</p>
+                </div>
+                <span class="inline-flex items-center px-3 py-1 rounded-md font-mono text-[11px] font-semibold bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-zinc-600 dark:text-zinc-300 w-fit">Oct 2023 – Nov 2023</span>
+              </div>
+              <ul class="space-y-2.5 text-sm text-zinc-600 dark:text-zinc-300 list-disc pl-5">
+                <li>Performed end-to-end e-commerce data cleaning, aggregation, and trend visualization using <strong class="text-zinc-950 dark:text-white">Pandas, NumPy, and Matplotlib</strong>.</li>
+                <li>Structured analytical findings into clear visual summaries to support business-oriented data interpretation.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Showcase -->
+    <section id="projects" class="py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="reveal flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10">
+          <div>
+            <span class="font-mono text-xs font-semibold uppercase tracking-widest text-gold-600 dark:text-gold-400">03 / Selected Work</span>
+            <h2 class="font-display text-2xl sm:text-4xl font-bold text-zinc-950 dark:text-white mt-2 tracking-tight">Projects &amp; Case Studies</h2>
+            <p class="text-sm text-zinc-600 dark:text-zinc-400 mt-1.5">Click any project card to explore deliverables, tools, and role highlights.</p>
+          </div>
+
+          <!-- Filter Tabs -->
+          <div id="projectFilters" class="flex flex-wrap gap-2">
+            <button type="button" data-filter="all" class="filter-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-zinc-950 dark:bg-gold-500 text-white dark:text-knight-bg shadow-sm transition-all active:scale-95">All (8)</button>
+            <button type="button" data-filter="ux" class="filter-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border text-zinc-600 dark:text-zinc-300 hover:border-gold-500 transition-all active:scale-95">UI/UX &amp; SRS (2)</button>
+            <button type="button" data-filter="web" class="filter-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border text-zinc-600 dark:text-zinc-300 hover:border-gold-500 transition-all active:scale-95">Web &amp; Full-Stack (2)</button>
+            <button type="button" data-filter="ai" class="filter-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border text-zinc-600 dark:text-zinc-300 hover:border-gold-500 transition-all active:scale-95">AI &amp; Data (3)</button>
+            <button type="button" data-filter="iot" class="filter-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border text-zinc-600 dark:text-zinc-300 hover:border-gold-500 transition-all active:scale-95">IoT (1)</button>
+          </div>
+        </div>
+
+        <!-- Projects Grid -->
+        <div id="projectsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 sm:py-24 bg-zinc-100/70 dark:bg-knight-surface/60 border-y border-zinc-200 dark:border-knight-border">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-12">
+          <span class="font-mono text-xs font-semibold uppercase tracking-widest text-gold-600 dark:text-gold-400">04 / Capabilities</span>
+          <h2 class="font-display text-2xl sm:text-4xl font-bold text-zinc-950 dark:text-white mt-2 tracking-tight">Skills &amp; Toolkit</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- UI/UX & Product -->
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border p-6 sm:p-7">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-lg bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-gold-600 dark:text-gold-400 flex items-center justify-center">
+                <i data-lucide="pen-tool" class="w-4 h-4"></i>
+              </div>
+              <h3 class="font-display font-bold text-zinc-950 dark:text-white text-base">UI/UX &amp; Product Documentation</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Wireframing</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Moqups</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Figma</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">UX Research</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">SRS Documentation</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">User Flows</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Responsive Design</span>
+            </div>
+          </div>
+
+          <!-- Business, Sales & Training -->
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border p-6 sm:p-7" style="transition-delay: 80ms;">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-lg bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-gold-600 dark:text-gold-400 flex items-center justify-center">
+                <i data-lucide="briefcase" class="w-4 h-4"></i>
+              </div>
+              <h3 class="font-display font-bold text-zinc-950 dark:text-white text-base">Business, Management &amp; Training</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Technical Training</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Business Development</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Client Communication</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Curriculum &amp; Deck Design</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Management Systems</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Taxation Fundamentals</span>
+            </div>
+          </div>
+
+          <!-- Programming & Web -->
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border p-6 sm:p-7" style="transition-delay: 120ms;">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-lg bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-gold-600 dark:text-gold-400 flex items-center justify-center">
+                <i data-lucide="terminal" class="w-4 h-4"></i>
+              </div>
+              <h3 class="font-display font-bold text-zinc-950 dark:text-white text-base">Programming &amp; Web Development</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">HTML5 &amp; CSS3</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">JavaScript</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">React JS</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Next.js</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Python</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Java</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">C / C++</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">SQL</span>
+            </div>
+          </div>
+
+          <!-- Data, Tools & Hardware -->
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border p-6 sm:p-7" style="transition-delay: 180ms;">
+            <div class="flex items-center gap-3 mb-5">
+              <div class="w-10 h-10 rounded-lg bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-gold-600 dark:text-gold-400 flex items-center justify-center">
+                <i data-lucide="database" class="w-4 h-4"></i>
+              </div>
+              <h3 class="font-display font-bold text-zinc-950 dark:text-white text-base">Data, Databases &amp; Tools</h3>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">MySQL</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Neon &amp; Prisma</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Power BI</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Pandas &amp; NumPy</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Matplotlib</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Git &amp; GitHub</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">VS Code</span>
+              <span class="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-50 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">Arduino Uno</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education & Certifications -->
+    <section id="education" class="py-16 sm:py-24">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="reveal mb-12">
+          <span class="font-mono text-xs font-semibold uppercase tracking-widest text-gold-600 dark:text-gold-400">05 / Academics</span>
+          <h2 class="font-display text-2xl sm:text-4xl font-bold text-zinc-950 dark:text-white mt-2 tracking-tight">Education &amp; Certifications</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- MBA -->
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border p-6 sm:p-7 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-gold-400 font-mono text-[11px] font-semibold">2025 – 2027</span>
+                <span class="font-mono text-[11px] font-semibold text-zinc-500 dark:text-zinc-400">3rd Semester</span>
+              </div>
+              <h3 class="font-display font-bold text-zinc-950 dark:text-white text-lg">Master of Business Administration (MBA)</h3>
+              <p class="text-sm font-medium text-zinc-600 dark:text-zinc-400 mt-1">Sikkim Manipal University (Online MBA)</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-3.5 leading-relaxed">
+                Focus areas include Systems, Taxation, Management Information Systems, Financial Management, and Operations.
+              </p>
+            </div>
+          </div>
+
+          <!-- B.E. -->
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border p-6 sm:p-7 flex flex-col justify-between" style="transition-delay: 80ms;">
+            <div>
+              <div class="flex items-center justify-between gap-2 mb-4">
+                <span class="px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300 font-mono text-[11px] font-semibold">2021 – 2025</span>
+                <span class="font-mono text-xs font-bold text-gold-600 dark:text-gold-400">7.79 CGPA</span>
+              </div>
+              <h3 class="font-display font-bold text-zinc-950 dark:text-white text-lg">B.E. in Information Science &amp; Engineering</h3>
+              <p class="text-sm font-medium text-zinc-600 dark:text-zinc-400 mt-1">Sri Krishna Institute of Technology (SKIT), Bengaluru</p>
+              <p class="text-xs text-zinc-500 dark:text-zinc-400 mt-3.5 leading-relaxed">
+                Affiliated to Visvesvaraya Technological University (VTU), Belagavi. Capstone project in Deepfake Face Detection using LSTM.
+              </p>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="reveal spotlight-card rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border p-6 sm:p-7" style="transition-delay: 160ms;">
+            <div class="flex items-center gap-2 mb-4">
+              <i data-lucide="award" class="w-5 h-5 text-gold-600 dark:text-gold-400"></i>
+              <h3 class="font-display font-bold text-zinc-950 dark:text-white text-lg">Certifications</h3>
+            </div>
+            <ul class="space-y-3 text-sm">
+              <li class="p-3.5 rounded-xl bg-zinc-50 dark:bg-knight-bg border border-zinc-200/80 dark:border-knight-border">
+                <div class="font-semibold text-zinc-950 dark:text-white">Advanced Deep Learning with Keras</div>
+                <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Deep Learning &amp; Neural Networks</div>
+              </li>
+              <li class="p-3.5 rounded-xl bg-zinc-50 dark:bg-knight-bg border border-zinc-200/80 dark:border-knight-border">
+                <div class="font-semibold text-zinc-950 dark:text-white">Deep Learning Projects with PyTorch</div>
+                <div class="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">Applied Computer Vision &amp; Modeling</div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-24 bg-[#0B0C0F] text-zinc-100 border-t border-knight-border">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          <div class="reveal lg:col-span-6 space-y-5">
+            <span class="font-mono text-xs font-semibold uppercase tracking-widest text-gold-400">06 / Contact</span>
+            <h2 class="font-display text-2xl sm:text-4xl font-bold leading-tight text-white">Looking for a versatile engineering + MBA graduate or technical trainer?</h2>
+            <p class="text-zinc-400 text-sm sm:text-base leading-relaxed">
+              I'm open to Business Development, MBA internships, UI/UX &amp; product documentation roles, and college technical training collaborations in Bengaluru and remote/hybrid setups across India.
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <div class="flex flex-wrap items-center gap-3">
+                <a href="mailto:dipendrakumar1812@gmail.com" class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-lg bg-knight-surface hover:bg-knight-card border border-knight-border text-sm font-medium transition-colors">
+                  <i data-lucide="mail" class="w-4 h-4 text-gold-400"></i>
+                  <span>dipendrakumar1812@gmail.com</span>
+                </a>
+                <button id="copyEmailBtn" type="button" class="inline-flex items-center gap-1.5 px-3.5 py-2.5 rounded-lg bg-gold-500 hover:bg-gold-400 text-knight-bg text-xs font-semibold transition-all active:scale-95">
+                  <i id="copyIcon" data-lucide="copy" class="w-3.5 h-3.5"></i>
+                  <span id="copyLabel">Copy Email</span>
+                </button>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <a href="https://www.linkedin.com/in/dipendra-kumar-96a15720b/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-knight-surface hover:bg-knight-card border border-knight-border text-sm font-medium transition-colors">
+                  <i data-lucide="linkedin" class="w-4 h-4 text-zinc-300"></i>
+                  <span>LinkedIn</span>
+                </a>
+                <a href="https://github.com/ds421710" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-knight-surface hover:bg-knight-card border border-knight-border text-sm font-medium transition-colors">
+                  <i data-lucide="github" class="w-4 h-4 text-zinc-300"></i>
+                  <span>github.com/ds421710</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Message Composer -->
+          <div class="reveal lg:col-span-6" style="transition-delay: 100ms;">
+            <form id="contactForm" class="rounded-2xl bg-knight-surface border border-knight-border p-6 sm:p-7 space-y-4 shadow-2xl shadow-black/50">
+              <h3 class="font-display font-bold text-lg text-white">Send a Quick Note</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="senderName" class="block text-xs font-semibold text-zinc-300 mb-1.5">Your Name</label>
+                  <input id="senderName" type="text" required placeholder="e.g. Priya Sharma" class="w-full px-3.5 py-2.5 rounded-lg bg-knight-bg border border-knight-border text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-gold-500 transition-colors" />
+                </div>
+                <div>
+                  <label for="inquiryType" class="block text-xs font-semibold text-zinc-300 mb-1.5">Topic</label>
+                  <select id="inquiryType" class="w-full px-3.5 py-2.5 rounded-lg bg-knight-bg border border-knight-border text-sm text-white focus:outline-none focus:border-gold-500 transition-colors">
+                    <option value="MBA / Business Development Role">MBA / Business Development Role</option>
+                    <option value="UI/UX or Product Design Opportunity">UI/UX or Product Design Opportunity</option>
+                    <option value="College Technical Training">College Technical Training</option>
+                    <option value="General Inquiry">General Inquiry</option>
+                  </select>
+                </div>
+              </div>
+              <div>
+                <label for="senderMsg" class="block text-xs font-semibold text-zinc-300 mb-1.5">Message</label>
+                <textarea id="senderMsg" rows="3" required placeholder="Share role details, training dates, or how we can collaborate..." class="w-full px-3.5 py-2.5 rounded-lg bg-knight-bg border border-knight-border text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-gold-500 transition-colors"></textarea>
+              </div>
+              <button type="submit" class="w-full inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-gold-500 hover:bg-gold-400 text-knight-bg text-sm font-semibold transition-all active:scale-[0.98]">
+                <i data-lucide="send" class="w-4 h-4"></i>
+                <span>Open in Email Client</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-knight-bg text-zinc-500 border-t border-knight-border py-6">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+      <p class="font-mono">&copy; 2026 DIPENDRA KUMAR &bull; BENGALURU, INDIA</p>
+      <a href="#top" class="inline-flex items-center gap-1.5 hover:text-gold-400 transition-colors">
+        <span>Back to top</span>
+        <i data-lucide="arrow-up" class="w-3.5 h-3.5"></i>
+      </a>
+    </div>
+  </footer>
+
+  <!-- Project Detail Modal -->
+  <div id="projectModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" class="hidden opacity-0 fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+    <div id="modalPanel" class="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border shadow-2xl p-6 sm:p-8 space-y-5">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <span id="modalCategory" class="inline-block px-2.5 py-1 rounded-md font-mono text-[11px] font-semibold bg-zinc-100 dark:bg-knight-card border border-zinc-200 dark:border-gold-500/35 text-gold-600 dark:text-gold-400 mb-2"></span>
+          <h3 id="modalTitle" class="font-display text-xl sm:text-2xl font-bold text-zinc-950 dark:text-white"></h3>
+          <p id="modalMeta" class="text-xs font-medium text-zinc-500 dark:text-zinc-400 mt-1"></p>
+        </div>
+        <button id="closeModalBtn" type="button" aria-label="Close modal" class="p-2 rounded-lg text-zinc-500 hover:bg-zinc-100 dark:hover:bg-knight-card transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+      <p id="modalDesc" class="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed"></p>
+      <div>
+        <h4 class="font-mono text-[11px] font-bold uppercase tracking-wider text-gold-600 dark:text-gold-400 mb-2.5">Key Highlights &amp; Deliverables</h4>
+        <ul id="modalHighlights" class="space-y-2 text-sm text-zinc-700 dark:text-zinc-200 list-disc pl-5"></ul>
+      </div>
+      <div>
+        <h4 class="font-mono text-[11px] font-bold uppercase tracking-wider text-gold-600 dark:text-gold-400 mb-2.5">Tools &amp; Technologies</h4>
+        <div id="modalTags" class="flex flex-wrap gap-2"></div>
+      </div>
+      <div class="pt-2 flex justify-end">
+        <button id="closeModalFooterBtn" type="button" class="px-4 py-2 rounded-lg bg-zinc-950 dark:bg-gold-500 text-white dark:text-knight-bg text-xs font-semibold hover:opacity-90 transition-opacity">Close Details</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" role="status" aria-live="polite" class="fixed bottom-5 right-5 z-50 hidden items-center gap-2 px-4 py-3 rounded-xl bg-knight-surface text-zinc-100 text-xs font-semibold shadow-2xl border border-gold-500/40">
+    <i data-lucide="check-circle" class="w-4 h-4 text-gold-400"></i>
+    <span id="toastText">Copied!</span>
+  </div>
+
+  <script>
+    (function () {
+      // --- Role Lens Data ---
+      const LENS_CONTENT = {
+        all: {
+          headline: 'Designing <span class="text-gold-600 dark:text-gold-400">clear products</span>, training engineers &amp; driving business growth.',
+          subtext: 'I\'m <strong class="text-zinc-950 dark:text-zinc-100">Dipendra Kumar</strong> — an Information Science &amp; Engineering graduate (7.79 CGPA), current Online MBA candidate at Sikkim Manipal University, UX wireframing intern, and freelance technical trainer who has mentored <strong class="text-zinc-950 dark:text-zinc-100">5,000+ engineering students</strong> across colleges.',
+          highlights: [
+            '<strong class="text-zinc-950 dark:text-white">UI/UX &amp; SRS:</strong> 20+ customer &amp; admin wireframes at Gully Group using Moqups &amp; Figma.',
+            '<strong class="text-zinc-950 dark:text-white">Technical Training:</strong> Delivered programming &amp; placement sessions to 5,000+ college students.',
+            '<strong class="text-zinc-950 dark:text-white">Tech + Business:</strong> Combining B.E. software foundations with MBA (Systems &amp; Taxation).'
+          ]
+        },
+        ux: {
+          headline: 'Turning complex workflows into <span class="text-gold-600 dark:text-gold-400">clear wireframes</span> &amp; developer-ready SRS specs.',
+          subtext: 'As a former UX Research &amp; Product Design Intern at <strong class="text-zinc-950 dark:text-zinc-100">Gully Group</strong>, I specialize in translating business requirements into structured customer/admin wireframes, competitive UI benchmarks, and clear Software Requirements Specifications.',
+          highlights: [
+            '<strong class="text-zinc-950 dark:text-white">20+ Wireframes:</strong> Designed booking, scheduling, and admin dashboard flows in Moqups &amp; Figma.',
+            '<strong class="text-zinc-950 dark:text-white">SRS Authoring:</strong> Documented functional &amp; non-functional specs for electrician, pest-control, and orphanage platforms.',
+            '<strong class="text-zinc-950 dark:text-white">Design Benchmarking:</strong> Analyzed production apps like Zepto for layout hierarchy, spacing, and responsiveness.'
+          ]
+        },
+        business: {
+          headline: 'Connecting <span class="text-gold-600 dark:text-gold-400">technical fluency</span> with people-first business growth.',
+          subtext: 'Currently in my 3rd semester of an <strong class="text-zinc-950 dark:text-zinc-100">Online MBA (SMU)</strong> with a B.E. in Information Science, I bring proven communication, presentation, and stakeholder coordination from training <strong class="text-zinc-950 dark:text-zinc-100">5,000+ students</strong> to Business Development and management roles.',
+          highlights: [
+            '<strong class="text-zinc-950 dark:text-white">Audience Engagement:</strong> Managed and mentored 5,000+ engineering students across college training cohorts.',
+            '<strong class="text-zinc-950 dark:text-white">Stakeholder Coordination:</strong> Partnered with training organizers on syllabi, schedules, and program execution.',
+            '<strong class="text-zinc-950 dark:text-white">MBA Foundation:</strong> Studying Systems, Taxation, Management Information Systems, and Marketing fundamentals.'
+          ]
+        }
+      };
+
+      // --- Grounded Projects Data ---
+      const PROJECTS = [
+        {
+          id: 'electrician-ux',
+          title: 'Electrician Service Platform — UI/UX & SRS',
+          category: 'ux',
+          categoryLabel: 'UI/UX & SRS',
+          featured: true,
+          meta: 'Gully Business Design Pvt. Ltd. • Internship Project (Feb – May 2025)',
+          summary: '20+ low-fidelity customer and admin wireframes plus full Software Requirements Specification for an end-to-end electrical service booking platform.',
+          highlights: [
+            'Designed customer booking, service catalog, pricing, payment, and electrician dispatch admin dashboards in Moqups and Figma.',
+            'Benchmarked Zepto app UI/UX patterns to establish consistent visual hierarchy, spacing, and mobile-friendly navigation.',
+            'Authored functional and non-functional SRS documentation aligning product stakeholders and software developers.'
+          ],
+          tags: ['Moqups', 'Figma', 'Wireframing', 'SRS', 'UX Research']
+        },
+        {
+          id: 'pest-orphanage-srs',
+          title: 'Pest-Control & Orphanage SRS + CCTV Wireframes',
+          category: 'ux',
+          categoryLabel: 'UI/UX & SRS',
+          featured: false,
+          meta: 'Product Documentation & Interface Architecture',
+          summary: 'Structured Software Requirements Specifications and administrative/CCTV monitoring wireframes for service and care-facility management workflows.',
+          highlights: [
+            'Mapped end-to-end user roles, service workflows, and system constraints into developer-ready SRS documents.',
+            'Designed clear monitoring and administration wireframe layouts for orphanage CCTV and management dashboards.',
+            'Focused on clarity, accessibility, and practical operational handoffs.'
+          ],
+          tags: ['SRS Documentation', 'Wireframing', 'Moqups', 'User Flows']
+        },
+        {
+          id: 'fifa-2026',
+          title: 'FIFA 2026 Match Prediction App',
+          category: 'web',
+          categoryLabel: 'Web & Full-Stack',
+          featured: false,
+          meta: 'Full-Stack Web Application',
+          summary: 'Interactive tournament prediction web application built with Next.js, Neon PostgreSQL, and Prisma ORM.',
+          highlights: [
+            'Built modern web frontend and server-side logic using Next.js for tournament match predictions.',
+            'Modeled relational match and prediction data using Prisma connected to a serverless Neon PostgreSQL database.',
+            'Combined personal passion for football analytics with modern full-stack web architecture.'
+          ],
+          tags: ['Next.js', 'Neon', 'Prisma', 'PostgreSQL', 'JavaScript']
+        },
+        {
+          id: 'music-player',
+          title: 'Full-Stack Music Player System',
+          category: 'web',
+          categoryLabel: 'Web & Full-Stack',
+          featured: false,
+          meta: 'Web Application • HTML, CSS, JavaScript & SQL',
+          summary: 'Feature-rich music streaming web interface supporting playlists, multi-criteria filtering, audio visualizations, and offline playback.',
+          highlights: [
+            'Implemented playlist creation, like/dislike controls, and filtering by artist, language, genre, and album.',
+            'Built interactive audio visualizations and responsive playback controls for smooth user experience.',
+            'Added offline mode and multi-format audio support for broader accessibility.'
+          ],
+          tags: ['HTML5', 'CSS3', 'JavaScript', 'SQL']
+        },
+        {
+          id: 'deepfake-lstm',
+          title: 'Deepfake Face Detection using LSTM',
+          category: 'ai',
+          categoryLabel: 'AI & Data',
+          featured: true,
+          meta: 'B.E. Capstone Project • SKIT Bengaluru (VTU)',
+          summary: 'Hybrid deep learning system combining ResNet feature extraction with LSTM networks to detect manipulated deepfake images and videos.',
+          highlights: [
+            'Combined spatial facial feature extraction (ResNet) with temporal sequence analysis (LSTM) to spot video frame anomalies.',
+            'Processed video and image inputs using OpenCV and Python to help safeguard against identity fraud and digital misinformation.',
+            'Designed complete system architecture including Level 0–2 Data Flow Diagrams, sequence diagrams, and evaluation workflows.'
+          ],
+          tags: ['Python', 'LSTM', 'ResNet', 'OpenCV', 'Deep Learning']
+        },
+        {
+          id: 'facemask-cnn',
+          title: 'Face-Mask Detection CNN',
+          category: 'ai',
+          categoryLabel: 'AI & Data',
+          featured: false,
+          meta: 'Computer Vision • 7,553 RGB Images Dataset',
+          summary: 'Convolutional Neural Network image classification model trained on 7,553 RGB images for automated face-mask compliance detection.',
+          highlights: [
+            'Preprocessed and trained a CNN pipeline across 7,553 labeled RGB images.',
+            'Applied deep learning fundamentals from Keras/PyTorch training to classify real-world facial imagery.'
+          ],
+          tags: ['Python', 'CNN', 'Deep Learning', 'Computer Vision']
+        },
+        {
+          id: 'ecommerce-data',
+          title: 'E-Commerce Data Analysis Pipeline',
+          category: 'ai',
+          categoryLabel: 'AI & Data',
+          featured: false,
+          meta: 'Python Libraries Internship (Oct – Nov 2023)',
+          summary: 'Exploratory data analysis and visual reporting pipeline uncovering sales, product, and customer trends from e-commerce datasets.',
+          highlights: [
+            'Cleaned and transformed raw e-commerce transaction records with Pandas and NumPy.',
+            'Generated clear trend charts and distribution visualizations using Matplotlib.'
+          ],
+          tags: ['Python', 'Pandas', 'NumPy', 'Matplotlib']
+        },
+        {
+          id: 'accident-iot',
+          title: 'Accident Prevention IoT Prototype',
+          category: 'iot',
+          categoryLabel: 'IoT',
+          featured: false,
+          meta: 'Hardware & Embedded C Prototype',
+          summary: 'Arduino Uno-based vehicle safety prototype integrating ultrasonic and vibration sensors for real-time obstacle and impact alerts.',
+          highlights: [
+            'Integrated ultrasonic distance sensors and vibration modules on an Arduino Uno breadboard circuit.',
+            'Programmed microcontroller detection and automated alert logic in Embedded C.',
+            'Validated real-time obstacle and impact triggers through live prototype and serial monitor testing.'
+          ],
+          tags: ['Arduino Uno', 'Embedded C', 'IoT', 'Sensors']
+        }
+      ];
+
+      function getCardVisualSvg(category) {
+        if (category === 'ux') {
+          return '<svg viewBox="0 0 280 110" class="w-full h-full" aria-hidden="true"><rect x="16" y="14" width="248" height="82" rx="6" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.4"/><rect x="26" y="24" width="56" height="62" rx="3" fill="currentColor" fill-opacity="0.14"/><rect x="92" y="24" width="160" height="18" rx="3" fill="currentColor" fill-opacity="0.20"/><rect x="92" y="50" width="74" height="36" rx="3" fill="currentColor" fill-opacity="0.11"/><rect x="174" y="50" width="78" height="36" rx="3" fill="currentColor" fill-opacity="0.11"/></svg>';
+        }
+        if (category === 'web') {
+          return '<svg viewBox="0 0 280 110" class="w-full h-full" aria-hidden="true"><rect x="16" y="14" width="248" height="82" rx="6" fill="currentColor" fill-opacity="0.06" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.4"/><circle cx="30" cy="26" r="3" fill="currentColor" fill-opacity="0.45"/><circle cx="42" cy="26" r="3" fill="currentColor" fill-opacity="0.45"/><circle cx="54" cy="26" r="3" fill="currentColor" fill-opacity="0.45"/><line x1="16" y1="36" x2="264" y2="36" stroke="currentColor" stroke-opacity="0.22"/><rect x="30" y="48" width="90" height="10" rx="2" fill="currentColor" fill-opacity="0.26"/><rect x="30" y="66" width="140" height="8" rx="2" fill="currentColor" fill-opacity="0.15"/><rect x="196" y="48" width="52" height="34" rx="4" fill="currentColor" fill-opacity="0.18"/></svg>';
+        }
+        if (category === 'ai') {
+          return '<svg viewBox="0 0 280 110" class="w-full h-full" aria-hidden="true"><line x1="60" y1="30" x2="140" y2="55" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.4"/><line x1="60" y1="80" x2="140" y2="55" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.4"/><line x1="60" y1="55" x2="140" y2="28" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.4"/><line x1="60" y1="55" x2="140" y2="82" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.4"/><line x1="140" y1="28" x2="220" y2="55" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.4"/><line x1="140" y1="55" x2="220" y2="55" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.4"/><line x1="140" y1="82" x2="220" y2="55" stroke="currentColor" stroke-opacity="0.28" stroke-width="1.4"/><circle cx="60" cy="30" r="5.5" fill="currentColor" fill-opacity="0.4"/><circle cx="60" cy="55" r="5.5" fill="currentColor" fill-opacity="0.4"/><circle cx="60" cy="80" r="5.5" fill="currentColor" fill-opacity="0.4"/><circle cx="140" cy="28" r="6.5" fill="currentColor" fill-opacity="0.5"/><circle cx="140" cy="55" r="6.5" fill="currentColor" fill-opacity="0.5"/><circle cx="140" cy="82" r="6.5" fill="currentColor" fill-opacity="0.5"/><circle cx="220" cy="55" r="8" fill="currentColor" fill-opacity="0.6"/></svg>';
+        }
+        return '<svg viewBox="0 0 280 110" class="w-full h-full" aria-hidden="true"><rect x="95" y="25" width="90" height="60" rx="6" fill="currentColor" fill-opacity="0.12" stroke="currentColor" stroke-opacity="0.32" stroke-width="1.4"/><circle cx="140" cy="55" r="14" fill="currentColor" fill-opacity="0.24"/><line x1="45" y1="40" x2="95" y2="40" stroke="currentColor" stroke-opacity="0.32" stroke-width="2"/><line x1="45" y1="70" x2="95" y2="70" stroke="currentColor" stroke-opacity="0.32" stroke-width="2"/><line x1="185" y1="40" x2="235" y2="40" stroke="currentColor" stroke-opacity="0.32" stroke-width="2"/><line x1="185" y1="70" x2="235" y2="70" stroke="currentColor" stroke-opacity="0.32" stroke-width="2"/><circle cx="42" cy="40" r="4" fill="currentColor" fill-opacity="0.5"/><circle cx="42" cy="70" r="4" fill="currentColor" fill-opacity="0.5"/><circle cx="238" cy="40" r="4" fill="currentColor" fill-opacity="0.5"/><circle cx="238" cy="70" r="4" fill="currentColor" fill-opacity="0.5"/></svg>';
+      }
+
+      function getCategoryAccent(category) {
+        if (category === 'ux') {
+          return 'bg-zinc-100 dark:bg-knight-card text-gold-600 dark:text-gold-400';
+        }
+        return 'bg-zinc-100 dark:bg-knight-card text-zinc-600 dark:text-zinc-300';
+      }
+
+      // --- State ---
+      let activeFilter = 'all';
+      let activeLens = 'all';
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // --- DOM Elements ---
+      const scrollProgress = document.getElementById('scrollProgress');
+      const navLinks = document.querySelectorAll('.nav-link');
+      const projectsGrid = document.getElementById('projectsGrid');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const lensBtns = document.querySelectorAll('.lens-btn');
+      const lensSlider = document.getElementById('lensSlider');
+      const heroHeadline = document.getElementById('heroHeadline');
+      const heroSubtext = document.getElementById('heroSubtext');
+      const lensHighlights = document.getElementById('lensHighlights');
+      const themeToggle = document.getElementById('themeToggle');
+      const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+      const projectModal = document.getElementById('projectModal');
+      const closeModalBtn = document.getElementById('closeModalBtn');
+      const closeModalFooterBtn = document.getElementById('closeModalFooterBtn');
+      const copyEmailBtn = document.getElementById('copyEmailBtn');
+      const copyLabel = document.getElementById('copyLabel');
+      const contactForm = document.getElementById('contactForm');
+      const toast = document.getElementById('toast');
+      const toastText = document.getElementById('toastText');
+
+      // --- Toast ---
+      let toastTimer = null;
+      function showToast(message) {
+        if (toastTimer) clearTimeout(toastTimer);
+        toastText.textContent = message;
+        toast.classList.remove('hidden');
+        toast.classList.add('flex');
+        toastTimer = setTimeout(() => {
+          toast.classList.add('hidden');
+          toast.classList.remove('flex');
+        }, 2800);
+      }
+
+      // --- Theme Handling (Defaults to Dark Noir; toggles Executive Light) ---
+      function initTheme() {
+        try {
+          const saved = localStorage.getItem('dk_noir_theme');
+          if (saved === 'light') {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      }
+
+      themeToggle.addEventListener('click', () => {
+        const isDark = document.documentElement.classList.toggle('dark');
+        try {
+          localStorage.setItem('dk_noir_theme', isDark ? 'dark' : 'light');
+        } catch (e) {}
+      });
+
+      // --- Mobile Menu ---
+      mobileMenuBtn.addEventListener('click', () => {
+        const isHidden = mobileMenu.classList.toggle('hidden');
+        mobileMenuBtn.setAttribute('aria-expanded', String(!isHidden));
+      });
+      mobileNavLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // --- Scroll Progress & Scroll-Spy (rAF throttled) ---
+      let scrollTicking = false;
+      const sectionEls = ['about', 'experience', 'projects', 'skills', 'education', 'contact']
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
+
+      function updateOnScroll() {
+        scrollTicking = false;
+        const doc = document.documentElement;
+        const maxScroll = Math.max(1, doc.scrollHeight - doc.clientHeight);
+        const ratio = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+        scrollProgress.style.transform = 'scaleX(' + ratio.toFixed(4) + ')';
+
+        const marker = window.scrollY + 140;
+        let currentId = '';
+        for (let i = 0; i < sectionEls.length; i++) {
+          if (sectionEls[i].offsetTop <= marker) currentId = sectionEls[i].id;
+        }
+        navLinks.forEach((link) => {
+          if (link.getAttribute('data-section') === currentId) {
+            link.classList.add('active-nav');
+          } else {
+            link.classList.remove('active-nav');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!scrollTicking) {
+          scrollTicking = true;
+          requestAnimationFrame(updateOnScroll);
+        }
+      }, { passive: true });
+
+      // --- Sliding Pill Positioning for Role Lens ---
+      function positionLensSlider(activeBtn) {
+        if (!lensSlider || !activeBtn) return;
+        lensSlider.style.width = activeBtn.offsetWidth + 'px';
+        lensSlider.style.transform = 'translate3d(' + activeBtn.offsetLeft + 'px, 0, 0)';
+      }
+
+      function updateLensButtons(selectedKey) {
+        lensBtns.forEach((b) => {
+          const isSelected = b.getAttribute('data-lens') === selectedKey;
+          b.className = 'lens-btn relative z-10 px-3.5 py-2 rounded-lg text-xs font-semibold transition-colors ' +
+            (isSelected
+              ? 'text-zinc-950 dark:text-zinc-50 bg-white sm:bg-transparent dark:bg-zinc-800 sm:dark:bg-transparent shadow-sm sm:shadow-none'
+              : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100');
+          if (isSelected) positionLensSlider(b);
+        });
+      }
+
+      lensBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-lens');
+          if (key === activeLens || !LENS_CONTENT[key]) return;
+          activeLens = key;
+          updateLensButtons(key);
+
+          const data = LENS_CONTENT[key];
+          heroHeadline.classList.add('swapping');
+          heroSubtext.classList.add('swapping');
+          lensHighlights.classList.add('swapping');
+
+          setTimeout(() => {
+            heroHeadline.innerHTML = data.headline;
+            heroSubtext.innerHTML = data.subtext;
+            lensHighlights.innerHTML = data.highlights
+              .map((item) => '<div class="flex items-start gap-2.5"><i data-lucide="check-circle-2" class="w-4 h-4 text-gold-600 dark:text-gold-400 shrink-0 mt-0.5"></i><span>' + item + '</span></div>')
+              .join('');
+            if (window.lucide) window.lucide.createIcons();
+
+            requestAnimationFrame(() => {
+              heroHeadline.classList.remove('swapping');
+              heroSubtext.classList.remove('swapping');
+              lensHighlights.classList.remove('swapping');
+            });
+          }, prefersReducedMotion ? 0 : 150);
+        });
+      });
+
+      window.addEventListener('resize', () => {
+        const activeBtn = document.querySelector('.lens-btn[data-lens="' + activeLens + '"]');
+        positionLensSlider(activeBtn);
+      });
+
+      // --- Spotlight Pointer Tracking (Desktop only, rAF throttled) ---
+      let pointerRaf = null;
+      function attachSpotlight(container) {
+        if (prefersReducedMotion) return;
+        container.addEventListener('pointermove', (e) => {
+          if (e.pointerType !== 'mouse') return;
+          const card = e.target.closest('.spotlight-card');
+          if (!card) return;
+          if (pointerRaf) return;
+          const clientX = e.clientX;
+          const clientY = e.clientY;
+          pointerRaf = requestAnimationFrame(() => {
+            pointerRaf = null;
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--mx', (clientX - rect.left) + 'px');
+            card.style.setProperty('--my', (clientY - rect.top) + 'px');
+          });
+        }, { passive: true });
+      }
+      attachSpotlight(document.body);
+
+      // --- Count-Up Metrics Animation ---
+      let countersRan = false;
+      function runCounters() {
+        if (countersRan || prefersReducedMotion) return;
+        countersRan = true;
+        const els = document.querySelectorAll('.count-up');
+        els.forEach((el) => {
+          const target = parseFloat(el.getAttribute('data-target') || '0');
+          const decimals = parseInt(el.getAttribute('data-decimals') || '0', 10);
+          const suffix = el.getAttribute('data-suffix') || '';
+          const duration = 850;
+          const start = performance.now();
+
+          function step(now) {
+            const progress = Math.min(1, (now - start) / duration);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = target * eased;
+            el.textContent = decimals > 0
+              ? current.toFixed(decimals) + suffix
+              : Math.round(current).toLocaleString() + suffix;
+            if (progress < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+        });
+      }
+
+      // --- IntersectionObserver for Scroll Reveals & Metrics ---
+      function initRevealObserver() {
+        const reveals = document.querySelectorAll('.reveal');
+        if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+          reveals.forEach((el) => el.classList.add('is-visible'));
+          return;
+        }
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+        reveals.forEach((el) => obs.observe(el));
+
+        const metricsStrip = document.getElementById('metricsStrip');
+        if (metricsStrip) {
+          const mObs = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+              runCounters();
+              mObs.disconnect();
+            }
+          }, { threshold: 0.3 });
+          mObs.observe(metricsStrip);
+        }
+      }
+
+      // --- Render Projects with Staggered Entrance ---
+      function renderProjects() {
+        const filtered = activeFilter === 'all'
+          ? PROJECTS
+          : PROJECTS.filter((p) => p.category === activeFilter);
+
+        projectsGrid.innerHTML = filtered.map((p, idx) => {
+          const accentClass = getCategoryAccent(p.category);
+          const featuredBadge = p.featured
+            ? '<span class="px-2 py-0.5 rounded font-mono text-[10px] font-bold uppercase tracking-wide bg-gold-500 text-knight-bg">Featured</span>'
+            : '';
+          const tagsHtml = p.tags.slice(0, 4).map((t) =>
+            '<span class="px-2.5 py-1 rounded-md text-[11px] font-medium bg-zinc-100 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">' + t + '</span>'
+          ).join('');
+          const delay = Math.min(idx * 50, 300);
+
+          return (
+            '<article data-project-id="' + p.id + '" tabindex="0" role="button" style="animation-delay:' + delay + 'ms" class="project-card card-enter spotlight-card group cursor-pointer rounded-2xl bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border hover:border-gold-500/60 overflow-hidden flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-gold-500">' +
+              '<div>' +
+                '<div class="h-28 w-full flex items-center justify-center border-b border-zinc-100 dark:border-knight-border transition-transform duration-300 group-hover:scale-[1.02] ' + accentClass + '">' + getCardVisualSvg(p.category) + '</div>' +
+                '<div class="p-5 space-y-3">' +
+                  '<div class="flex items-center justify-between gap-2">' +
+                    '<span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">' + p.categoryLabel + '</span>' +
+                    featuredBadge +
+                  '</div>' +
+                  '<h3 class="font-display font-bold text-zinc-950 dark:text-white text-base leading-snug">' + p.title + '</h3>' +
+                  '<p class="text-xs text-zinc-600 dark:text-zinc-400 leading-relaxed">' + p.summary + '</p>' +
+                '</div>' +
+              '</div>' +
+              '<div class="px-5 pb-5 pt-2 space-y-3">' +
+                '<div class="flex flex-wrap gap-1.5">' + tagsHtml + '</div>' +
+                '<div class="text-xs font-semibold text-gold-600 dark:text-gold-400 inline-flex items-center gap-1">View case details <i data-lucide="arrow-right" class="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"></i></div>' +
+              '</div>' +
+            '</article>'
+          );
+        }).join('');
+
+        if (window.lucide) window.lucide.createIcons();
+      }
+
+      // Filter button handlers
+      filterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          activeFilter = btn.getAttribute('data-filter');
+          filterBtns.forEach((b) => {
+            b.className = 'filter-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-white dark:bg-knight-surface border border-zinc-200 dark:border-knight-border text-zinc-600 dark:text-zinc-300 hover:border-gold-500 transition-all active:scale-95';
+          });
+          btn.className = 'filter-btn px-3.5 py-2 rounded-lg text-xs font-semibold bg-zinc-950 dark:bg-gold-500 text-white dark:text-knight-bg shadow-sm transition-all active:scale-95';
+          renderProjects();
+        });
+      });
+
+      // --- Modal with Spring Animation ---
+      function openProjectModal(projectId) {
+        const p = PROJECTS.find((item) => item.id === projectId);
+        if (!p) return;
+        document.getElementById('modalCategory').textContent = p.categoryLabel;
+        document.getElementById('modalTitle').textContent = p.title;
+        document.getElementById('modalMeta').textContent = p.meta;
+        document.getElementById('modalDesc').textContent = p.summary;
+        document.getElementById('modalHighlights').innerHTML = p.highlights.map((h) => '<li>' + h + '</li>').join('');
+        document.getElementById('modalTags').innerHTML = p.tags.map((t) =>
+          '<span class="px-3 py-1 rounded-md text-xs font-medium bg-zinc-100 dark:bg-knight-bg border border-zinc-200 dark:border-knight-border text-zinc-700 dark:text-zinc-300">' + t + '</span>'
+        ).join('');
+        projectModal.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          projectModal.classList.remove('opacity-0');
+          projectModal.classList.add('modal-open');
+        });
+      }
+
+      function closeModal() {
+        projectModal.classList.remove('modal-open');
+        projectModal.classList.add('opacity-0');
+        setTimeout(() => {
+          projectModal.classList.add('hidden');
+        }, prefersReducedMotion ? 0 : 200);
+      }
+
+      projectsGrid.addEventListener('click', (e) => {
+        const card = e.target.closest('.project-card');
+        if (card) openProjectModal(card.getAttribute('data-project-id'));
+      });
+      projectsGrid.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          const card = e.target.closest('.project-card');
+          if (card) {
+            e.preventDefault();
+            openProjectModal(card.getAttribute('data-project-id'));
+          }
+        }
+      });
+
+      closeModalBtn.addEventListener('click', closeModal);
+      closeModalFooterBtn.addEventListener('click', closeModal);
+      projectModal.addEventListener('click', (e) => {
+        if (e.target === projectModal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !projectModal.classList.contains('hidden')) closeModal();
+      });
+
+      // --- Copy Email Micro-interaction ---
+      let copyResetTimer = null;
+      function triggerCopySuccess(email) {
+        showToast('Email copied: ' + email);
+        if (copyResetTimer) clearTimeout(copyResetTimer);
+        copyLabel.textContent = 'Copied!';
+        copyEmailBtn.classList.remove('bg-gold-500', 'hover:bg-gold-400', 'text-knight-bg');
+        copyEmailBtn.classList.add('bg-zinc-200', 'text-zinc-950');
+        copyResetTimer = setTimeout(() => {
+          copyLabel.textContent = 'Copy Email';
+          copyEmailBtn.classList.remove('bg-zinc-200', 'text-zinc-950');
+          copyEmailBtn.classList.add('bg-gold-500', 'hover:bg-gold-400', 'text-knight-bg');
+        }, 1800);
+      }
+
+      copyEmailBtn.addEventListener('click', () => {
+        const email = 'dipendrakumar1812@gmail.com';
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(email).then(() => {
+            triggerCopySuccess(email);
+          }).catch(() => {
+            fallbackCopy(email);
+          });
+        } else {
+          fallbackCopy(email);
+        }
+      });
+
+      function fallbackCopy(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try {
+          document.execCommand('copy');
+          triggerCopySuccess(text);
+        } catch (e) {
+          showToast('Email: ' + text);
+        }
+        document.body.removeChild(ta);
+      }
+
+      // --- Contact Form ---
+      contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('senderName').value.trim();
+        const topic = document.getElementById('inquiryType').value;
+        const msg = document.getElementById('senderMsg').value.trim();
+        const subject = encodeURIComponent('[' + topic + '] Message from ' + name);
+        const body = encodeURIComponent('Hi Dipendra,\n\n' + msg + '\n\nBest regards,\n' + name);
+        window.location.href = 'mailto:dipendrakumar1812@gmail.com?subject=' + subject + '&body=' + body;
+        showToast('Opening your email client...');
+        contactForm.reset();
+      });
+
+      // --- Init ---
+      initTheme();
+      renderProjects();
+      initRevealObserver();
+      updateOnScroll();
+      if (window.lucide) window.lucide.createIcons();
+      requestAnimationFrame(() => {
+        updateLensButtons(activeLens);
+      });
+    })();
+  </script>
+</body>
+</html>
